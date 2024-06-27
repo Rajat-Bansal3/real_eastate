@@ -42,9 +42,7 @@ export const SignIn = async (req, res, next) => {
       return next(errorHandle(401, "Incorrect email or password"));
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.SECRET, {
-      expiresIn: "1d",
-    });
+    const token = jwt.sign({ id: user._id }, process.env.SECRET);
     const { password: userPass, ...ret } = user._doc;
     res
       .cookie("access_token", token, {

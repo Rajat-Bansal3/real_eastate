@@ -16,10 +16,13 @@ mongoose.connect(process.env.MONGO_URL).then(() => {
 app.use("/api/auth", authRouter);
 
 app.use((err, req, res, next) => {
-  const erre = err.statusCode | 500;
-  const msg = err.message | "Internal Server Error";
-  console.log({ success: false, message: msg, status: erre })
-  return res.status(err).json({ success: false, message: msg, status: erre });
+  const statusCode = err.statusCode || 500;
+  const message = err.message || 'Internal Server Error';
+  return res.status(statusCode).json({
+    success: false,
+    statusCode,
+    message,
+  });
 });
 
 app.listen(3000, () => {
