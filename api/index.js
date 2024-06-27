@@ -13,11 +13,12 @@ mongoose.connect(process.env.MONGO_URL).then(() => {
   console.log("connect to mongo");
 });
 
-app.use("/v1/api/auth", authRouter);
+app.use("/api/auth", authRouter);
 
 app.use((err, req, res, next) => {
   const erre = err.statusCode | 500;
   const msg = err.message | "Internal Server Error";
+  console.log({ success: false, message: msg, status: erre })
   return res.status(err).json({ success: false, message: msg, status: erre });
 });
 

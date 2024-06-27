@@ -1,5 +1,5 @@
 import User from "../models/User.model.js";
-import hashSync from "bcryptjs";
+import bcrypt from "bcryptjs";
 import { errorHandle } from "../utils/err.js";
 
 export const SignUp = async (req, res, next) => {
@@ -8,16 +8,16 @@ export const SignUp = async (req, res, next) => {
     return res.status(401).json({ message: "invalid inputs" });
   else {
     const user = await User.findOne({ email });
-    if (user) return res.status(401).json({ message: "user already exists" });
+    if (user) return res.status(400).json({ message: "user already exists" });
   }
   try {
-    const hashedPass = await hashSync(password, 8);
+    const hashedPass = bcrypt.hashSync(password, 8);
     const user = new User({ email, username, password: hashedPass });
 
     await user.save();
     res.status(201).json({ messsage: "user created successfully" });
   } catch (err) {
     console.log(err.message);
-    errorHandle(next(err));
+    next(err);
   }
 };
