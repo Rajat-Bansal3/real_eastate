@@ -7,6 +7,7 @@ import {
   signInFail,
   signInSuccess,
 } from "../redux/user/user.slice.js";
+import Oauth from "../Components/Oauth.jsx";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -68,9 +69,7 @@ const SignIn = () => {
           >
             {loading ? "loading..." : `Submit Now`}
           </button>
-          {/* <button className='bg-red-600 text-white p-3 rounded-lg uppercase hover:bg-red-500 disabled:opacity-80'>
-            login with google
-          </button> */}
+          <Oauth/>
         </form>
         <div className='flex gap-2 mt-5'>
           Don't Have an account?

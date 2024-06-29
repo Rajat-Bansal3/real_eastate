@@ -1,11 +1,19 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Oauth from "../Components/Oauth";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  signInFail,
+  signInStart,
+  signInSuccess,
+} from "../redux/user/user.slice";
+
 const SignUp = () => {
   const navigate = useNavigate();
   const [formData, setFromData] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.user);
 
   const handleChange = (e) => {
     setFromData({
@@ -15,16 +23,15 @@ const SignUp = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    dispatch(signInStart());
     try {
       const response = await axios.post("/api/auth/sign-up", formData);
       if (!response.success) {
-        setLoading(false);
+        dispatch(signInFail(response.data));
         console.log(response);
         setError(response.data.message);
       }
-      setError("");
-      setLoading(false);
+      dispatch(signInSuccess(response.data));
       navigate("/sign-in");
     } catch (e) {
       setLoading(false);
@@ -67,9 +74,7 @@ const SignUp = () => {
           >
             {loading ? "loading..." : `Submit Now`}
           </button>
-          <button className='bg-red-600 text-white p-3 rounded-lg uppercase hover:bg-red-500 disabled:opacity-80'>
-            login with google
-          </button>
+          <Oauth />
         </form>
         <div className='flex gap-2 mt-5'>
           already Have an account?{" "}
