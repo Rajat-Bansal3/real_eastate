@@ -47,7 +47,7 @@ export const SignIn = async (req, res, next) => {
     res
       .cookie("access_token", token, {
         httpOnly: true,
-        expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+        expires: new Date(Date.now() + 24 * 60 * 60 * 1000 * 365),
       })
       .status(200)
       .json({ ret });
@@ -79,7 +79,7 @@ export const Google = async (req, res, next) => {
       res
         .cookie("access_token", token, {
           httpOnly: true,
-          expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+          expires: new Date(Date.now() + 24 * 60 * 60 * 1000 * 365),
         })
         .status(200)
         .json({ ret });
@@ -89,13 +89,24 @@ export const Google = async (req, res, next) => {
       res
         .cookie("access_token", token, {
           httpOnly: true,
-          expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+          expires: new Date(Date.now() + 24 * 60 * 60 * 1000 * 365),
         })
         .status(200)
         .json({ ret });
     }
   } catch (error) {
     console.log(error);
+    next(error);
+  }
+};
+export const SignOut = async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    if (id !== req.user.id) {
+      return next(errorHandle(401, "Not you haha haha, dibs on you"));
+    }
+    res.clearCookie("access_token").status(204).json({});
+  } catch (error) {
     next(error);
   }
 };
