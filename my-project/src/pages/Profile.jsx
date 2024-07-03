@@ -171,6 +171,14 @@ const Profile = () => {
           >
             {loading ? "Loading..." : "Update"}
           </button>
+          <button
+            disabled={loading}
+            className='bg-green-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'
+            type="button"
+            onClick={()=>{nav("/create-listing")}}
+          >
+            Create Listing
+          </button>
           {error ? (
             <span className='text-red-500'>{error}</span>
           ) : success ? (
