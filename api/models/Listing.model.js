@@ -14,11 +14,11 @@ const listingSchema = new Schema(
       type: String,
       required: true,
     },
-    regular_price: {
+    regularPrice: {
       type: String,
       required: true,
     },
-    discount: {
+    discountPrice: {
       type: String,
       required: true,
     },

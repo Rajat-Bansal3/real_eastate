@@ -8,6 +8,7 @@ import CreateListing from "./pages/CreateListing";
 import About from "./pages/About";
 import Header from "./Components/Header";
 import PrivateRoutes from "./Components/PrivateRoutes";
+import Listing from "./pages/Listing";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -23,6 +24,7 @@ function App() {
           <Route element={<PrivateRoutes />}>
             <Route path='/profile' element={<Profile />} />
             <Route path='/create-listing' element={<CreateListing />} />
+            <Route path='/listing/:id' element={<Listing />} />
           </Route>
           <Route path='/about' element={<About />} />
         </Routes>
