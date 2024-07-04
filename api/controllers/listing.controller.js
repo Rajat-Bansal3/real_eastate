@@ -23,12 +23,23 @@ export const showUserListing = async (req, res, next) => {
   if (id !== req.user.id) {
     return next(errorHandle(401, "hahaha , gotchu dibs"));
   }
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const skip = (page - 1) * limit;
   try {
-    const listings = await Listing.find({ ownerRef: id });
-    if (listings.length === 0 || !listings) {
+    const totalListings = await Listing.countDocuments({ ownerRef: id });
+    const listings = await Listing.find({ ownerRef: id })
+      .skip(skip)
+      .limit(limit);
+    if (!listings.length) {
       return next(errorHandle(404, "no listings found"));
     }
-    res.status(200).json({ listings });
+    res.status(200).json({
+      listings,
+      totalListings,
+      totalPages: Math.ceil(totalListings / limit),
+      currentPage: page,
+    });
   } catch (error) {
     next(error);
   }

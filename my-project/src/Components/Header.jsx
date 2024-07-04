@@ -31,6 +31,15 @@ const Header = () => {
             </li>
           </Link>
           {currentUser ? (
+            <Link to={`/listing/${currentUser.ret._id}`}>
+              <li className='text-slate-700 hover:underline hidden sm:inline cursor-pointer'>
+                My-listings
+              </li>
+            </Link>
+          ) : (
+            ""
+          )}
+          {currentUser ? (
             <Link to={"/profile"}>
               <img
                 className='h-8 rounded-full  object-cover'
