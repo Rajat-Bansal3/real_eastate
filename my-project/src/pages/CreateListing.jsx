@@ -126,7 +126,7 @@ const CreateListing = () => {
         ownerRef: currentUser.ret._id,
       });
       console.log(response.data);
-      nav(`/listing/${currentUser._id}`);
+      nav(`/listings/${currentUser._id}`);
     } catch (error) {
       console.log(error);
       formData.imageUrls.map((x, i) => {

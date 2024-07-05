@@ -44,3 +44,19 @@ export const showUserListing = async (req, res, next) => {
     next(error);
   }
 };
+
+export const deleteUserListing = async (req, res, next) => {
+  console.log(req.query)
+  const id = req.query.lid;
+  const userId = req.query.id;
+  if (userId !== req.user.id) {
+    return next(errorHandle(401, "hahaha , gotchu dibs"));
+  }
+  try {
+    const listing = await Listing.findByIdAndDelete(id);
+    if (!listing) return next(errorHandle(404, "no Such Listing"));
+    res.status(204).json({ message: "Deleted Successfully" });
+  } catch (error) {
+    next(error);
+  }
+};

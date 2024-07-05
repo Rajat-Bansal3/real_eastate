@@ -31,7 +31,7 @@ const Header = () => {
             </li>
           </Link>
           {currentUser ? (
-            <Link to={`/listing/${currentUser.ret._id}`}>
+            <Link to={`/listings/${currentUser.ret._id}`}>
               <li className='text-slate-700 hover:underline hidden sm:inline cursor-pointer'>
                 My-listings
               </li>
