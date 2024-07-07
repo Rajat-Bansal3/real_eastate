@@ -46,7 +46,7 @@ export const showUserListing = async (req, res, next) => {
 };
 
 export const deleteUserListing = async (req, res, next) => {
-  console.log(req.query)
+  console.log(req.query);
   const id = req.query.lid;
   const userId = req.query.id;
   if (userId !== req.user.id) {
@@ -56,6 +56,33 @@ export const deleteUserListing = async (req, res, next) => {
     const listing = await Listing.findByIdAndDelete(id);
     if (!listing) return next(errorHandle(404, "no Such Listing"));
     res.status(204).json({ message: "Deleted Successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateUserListing = async (req, res, next) => {
+  const id = req.query.id;
+  try {
+    const listing = await Listing.findById(id);
+    if (!listing) {
+      return next(errorHandle(404, "no listing found"));
+    }
+    if (req.user.id !== listing.ownerRef)
+      return next(errorHandle(401, "hahaha , gotchu dibs"));
+
+    const newL = await Listing.findByIdAndUpdate(id, req.body, { new: true });
+    res.status(203).json({ newL });
+  } catch (error) {
+    next(error);
+  }
+};
+export const getListing = async (req, res, next) => {
+  const id = req.query.id;
+  try {
+    const listing = await Listing.findById(id);
+    if (!listing) return next(errorHandle(404, "No Listing Found"));
+    res.status(200).json({ listing });
   } catch (error) {
     next(error);
   }
