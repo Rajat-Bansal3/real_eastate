@@ -105,7 +105,6 @@ const UpdateListing = () => {
         "state_changed",
         (snap) => {
           const prog = (snap.bytesTransferred / snap.totalBytes) * 100;
-          console.log(Math.round(prog * 100) / 100);
         },
         (err) => {
           reject(err);
@@ -123,7 +122,6 @@ const UpdateListing = () => {
     const response = await axios.get("/api/listing/get-listing/", {
       params: { id },
     });
-    console.log(response.data);
     setFormData(response.data.listing);
   };
   useEffect(() => {

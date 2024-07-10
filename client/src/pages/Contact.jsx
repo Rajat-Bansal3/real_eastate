@@ -11,7 +11,6 @@ const Contact = ({ listing }) => {
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(`/api/listing/${listing.ownerRef}`);
-      console.log(res.data.user);
       setUser(res.data.user);
     };
     fetchUser();

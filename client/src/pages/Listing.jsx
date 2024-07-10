@@ -35,7 +35,6 @@ const Listing = () => {
           params: { id },
         });
         setListing(res.data.listing);
-        console.log(res.data);
         setLoading(false);
         setError(null);
       } catch (error) {

@@ -19,14 +19,11 @@ const UserListing = () => {
       const response = await axios.delete(`/api/listing/delete-user-listings`, {
         params: { id, listId },
       });
-      console.log(response.data);
       fetchListings(currentPage);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setLoading(false);
     }
-    console.log("clicker");
   };
   const handleUpdate = (e, listId) => {
     e.preventDefault();
@@ -47,7 +44,6 @@ const UserListing = () => {
       setTotalPages(Math.ceil(response.data.totalListings / listingsPerPage));
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setLoading(false);
     }
   };

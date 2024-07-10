@@ -104,7 +104,6 @@ const CreateListing = () => {
         "state_changed",
         (snap) => {
           const prog = (snap.bytesTransferred / snap.totalBytes) * 100;
-          console.log(Math.round(prog * 100) / 100);
         },
         (err) => {
           reject(err);
@@ -125,10 +124,8 @@ const CreateListing = () => {
         ...formData,
         ownerRef: currentUser.ret._id,
       });
-      console.log(response.data);
       nav(`/listings/${currentUser._id}`);
     } catch (error) {
-      console.log(error);
       formData.imageUrls.map((x, i) => {
         handleImageDel(x, i);
       });

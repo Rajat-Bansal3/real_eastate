@@ -25,11 +25,9 @@ const Oauth = () => {
         email: resu.user.email,
         photo: resu.user.photoURL,
       });
-      console.log(reasu.data);
       dispatch(signInSuccess(reasu.data));
       navigate("/")
     } catch (error) {
-      console.log(error);
     }
   };
   return (

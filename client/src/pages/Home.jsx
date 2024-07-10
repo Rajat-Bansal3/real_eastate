@@ -19,7 +19,6 @@ const Home = () => {
         setOfferListings(res.data);
         fetchRentListings();
       } catch (error) {
-        console.log(error);
       }
     };
     const fetchRentListings = async () => {
@@ -28,7 +27,6 @@ const Home = () => {
         setRentListings(res.data);
         fetchSaleListings();
       } catch (error) {
-        console.log(error);
       }
     };
 
@@ -38,7 +36,6 @@ const Home = () => {
         setRentListings(res.data);
         fetchSaleListings();
       } catch (error) {
-        console.log(error);
       }
     };
     fetchOfferListings();

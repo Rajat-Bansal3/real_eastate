@@ -47,7 +47,6 @@ export const showUserListing = async (req, res, next) => {
 };
 
 export const deleteUserListing = async (req, res, next) => {
-  console.log(req.query);
   const id = req.query.lid;
   const userId = req.query.id;
   if (userId !== req.user.id) {

@@ -13,7 +13,6 @@ const Header = () => {
     try {
       const url = new URLSearchParams(window.location.search);
       url.set(`searchTerm`, searchTerm);
-      console.log(url);
       const query = url.toString();
       navigate(`search?${query}`);
     } catch (error) {}

@@ -28,7 +28,6 @@ const SignUp = () => {
       const response = await axios.post("/api/auth/sign-up", formData);
       if (!response.success) {
         dispatch(signInFail(response.data));
-        console.log(response);
         setError(response.data.message);
       }
       dispatch(signInSuccess(response.data));

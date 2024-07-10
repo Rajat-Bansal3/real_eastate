@@ -72,7 +72,6 @@ const Profile = () => {
     e.preventDefault();
     setSuccess(null);
     dispatch(updateUserStart());
-    // console.log(formData)
     try {
       const response = await axios.put(
         `/api/user/update/${currentUser.ret._id}`,
@@ -80,7 +79,6 @@ const Profile = () => {
       );
       dispatch(updateUserSuccess(response.data));
       setSuccess("user updated successfully");
-      console.log(response.data);
     } catch (e) {
       dispatch(updateUserFail(e.response.data.message));
       setSuccess(null);
