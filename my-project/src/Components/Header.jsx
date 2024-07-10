@@ -1,21 +1,52 @@
 import { FaSearch } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    try {
+      const url = new URLSearchParams(window.location.search);
+      url.set(`searchTerm`, searchTerm);
+      console.log(url);
+      const query = url.toString();
+      navigate(`search?${query}`);
+    } catch (error) {}
+  };
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get("searchTerm");
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    }
+  }, [location.search]);
+
   return (
     <header className='bg-slate-200 shadow-md'>
       <div className='flex justify-between items-center max-w-6xl mx-auto p-3'>
-        <h1 className='font-bold text-sm sm:text-xl flex flex-wrap'>
-          <span className='text-slate-500'>Property</span>
-          <span className='text-slate-700'>Scams</span>
-        </h1>
-        <form className='bg-slate-100 p-3 rounded-lg flex items-center'>
+        <Link to={"/"}>
+          <h1 className='font-bold text-sm sm:text-xl flex flex-wrap'>
+            <span className='text-slate-500'>Property</span>
+            <span className='text-slate-700'>Scams</span>
+          </h1>
+        </Link>
+        <form
+          onSubmit={handleSubmit}
+          className='bg-slate-100 p-3 rounded-lg flex items-center'
+        >
           <input
             type='text'
             placeholder='Search...'
             className='bg-transparent focus:outline-none w-24 sm:w-64'
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+            }}
           />
           <FaSearch className='text-slate-500' />
         </form>

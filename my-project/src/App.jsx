@@ -11,6 +11,7 @@ import PrivateRoutes from "./Components/PrivateRoutes";
 import UserListing from "./pages/UserListing";
 import Listing from "./pages/Listing";
 import UpdateListing from "./pages/UpdateListing";
+import Search from "./pages/Search";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -23,6 +24,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/sign-in' element={<SignIn />} />
           <Route path='/sign-up' element={<SignUp />} />
+          <Route path='/search' element={<Search />} />
           <Route element={<PrivateRoutes />}>
             <Route path='/profile' element={<Profile />} />
             <Route path='/create-listing' element={<CreateListing />} />
