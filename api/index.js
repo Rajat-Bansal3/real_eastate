@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import authRouter from "./routes/auth.routes.js";
 import userRouter from "./routes/user.routes.js";
 import listingRouter from "./routes/listing.routes.js";
+import path from 'path'
 
 dotenv.config();
 
@@ -15,6 +16,8 @@ app.use(cookieParser());
 mongoose.connect(process.env.MONGO_URL).then(() => {
   console.log("connect to mongo");
 });
+
+const __dirname = path.resolve()
 
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
